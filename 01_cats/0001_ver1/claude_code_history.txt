@@ -1,0 +1,813 @@
+
+❯ <ide_opened_file>The user opened the file
+  ~/Repos/nvcnsf-private/experiment_01_cat_01/CLAUDE.md in
+  the IDE. This may or may not be related to the current
+  task.</ide_opened_file>
+
+❯ I have written an experiment task on CLAUDE.md. I want to validate coding so
+  execute subexperiment 1 first.
+
+  Read 2 files, listed 3 directories, ran 4 shell commands (ctrl+o to expand)
+
+● Context gathered (CLAUDE.md, infer.py, checkpoint, datasets). Now I'm checking
+  the jvs layout and helper functions, then I'll write the generation and
+  analysis scripts for subexperiment 1.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● I'll write generate.py to convert 8 Common Voice sources and 6 cat clips to
+  reference speakers (unseen Common Voice and closed-set jvs) using the 500k
+  checkpoint, then write analyze.py to measure MFCC distance, speaker-embedding
+  cosine, and F0 against source/target, comparing human→cat results with
+  conventional VC baselines.
+
+● Write(experiment_01_cat_01/01.end_to_end_feasibility/vc.py)
+  ⎿  Wrote 122 lines to
+     experiment_01_cat_01/01.end_to_end_feasibility/vc.py
+       1 """Shared helpers for subexperiment 01: model wrapper and audio
+         loading.
+       3 The conversion calls follow `infer.py` at the repository root
+       4 (speaker_encode -> content_encode -> condition -> synth, block-w
+         ise over
+         to the
+       6 current directory.
+       7 """
+       9 import pathlib
+      10 import sys
+     … +132 lines (ctrl+o to expand)
+
+● Quick smoke test of the model wrapper before building on it:
+
+  Ran 5 shell commands (ctrl+o to expand)
+
+● Segfault comes from importing preprocesses after JAX initialized. infer.py
+  imports TensorFlow first and hides the GPU from it, so I'll use the same
+  import order.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/vc.py)
+  ⎿  Added 7 lines
+      13  if str(REPO_ROOT) not in sys.path:
+      14      sys.path.insert(0, str(REPO_ROOT))
+      15  
+      16 +# Same import order as `infer.py`: TensorFlow (pulled in by `pr
+         +eprocesses`)                                                   
+      17 +# must be loaded with its GPU hidden before JAX initializes, ot
+         +herwise the                                                    
+      18 +# process segfaults.                                           
+      19 +import tensorflow as tf                                        
+      20 +tf.config.set_visible_devices([], device_type='GPU')           
+      21 +from preprocesses import remove_silence                        
+      22 +                                                               
+      23  import numpy as np
+      24  import librosa
+      25  import librosa.effects
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/vc.py)
+  ⎿  Removed 1 line
+      44  
+      45  def trim_silence(x, sr=SR, top_db=40):
+      46      """Silence removal as done for references in `infer.py`."""
+      47 -    from preprocesses import remove_silence                    
+      47      intervals = librosa.effects.split(x, top_db=top_db, frame_l
+          ength=1024, hop_length=256)
+      48      if len(intervals) == 0:
+      49          return x
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Pipeline works end to end. One early sign: the model's predicted F0 for the
+  cat-target conversion is about 123 Hz, which is in the human range. Writing
+  the generation script now.
+
+● Write(experiment_01_cat_01/01.end_to_end_feasibility/generate.py)
+  ⎿  Wrote 178 lines to
+     experiment_01_cat_01/01.end_to_end_feasibility/generate.py
+       1 """Subexperiment 01 — data generation.
+       2
+         s (meow-10k)
+       4 and human reference speakers (Common Voice ja = open set, jvs =
+         closed set),
+         d NVCNSF model.
+       6
+       7 Outputs (inside this directory):
+       9   data/ref/*.wav          silence-trimmed references (24 kHz)
+      10   data/conv/*.wav         converted utterances (24 kHz)
+     … +212 lines (ctrl+o to expand)
+
+  Searched for 1 pattern, read 1 file, ran 1 shell command (ctrl+o to expand)
+
+● The screening is wrongly favouring clips whose median F0 sits at the 200 Hz
+  floor (likely purrs or low noise). I'll restrict selection to meow-range F0
+  (250–1500 Hz). First, the crash:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Old soundfile version needs str paths. Fixing that and the cat screening
+  criterion:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/generate.py)
+  ⎿  Added 7 lines, removed 2 lines
+       87  
+       88  
+       89  def screen_cats(rng, n_pool, n_cat, out_csv):
+       90 -    """Pick cat clips that actually contain tonal vocalization
+          - (pYIN voiced ratio, 200-2000 Hz)."""                         
+       90 +    """Pick cat clips that contain meow-like tonal vocalizatio
+          +n.                                                            
+       91 +                                                              
+       92 +    Ranked by pYIN voiced ratio (150-2000 Hz); clips whose voi
+          +ced median F0 is                                              
+       93 +    outside MEOW_F0_RANGE (purrs, hums, low-frequency noise pi
+          +nned near fmin)                                               
+       94 +    are not eligible.                                         
+       95 +    """                                                       
+       96      files = sorted(MEOW_DIR.glob('*.wav'))
+       97      pool = rng.sample(files, n_pool)
+       98      rows = []
+       99      for i, path in enumerate(pool):
+      100          x = vc.trim_silence(vc.load_audio(path, sr=16000), sr=
+           16000)
+       96 -        f0, voiced, _ = librosa.pyin(x, fmin=200, fmax=2000, s
+          -r=16000, frame_length=1024)                                   
+      101 +        f0, voiced, _ = librosa.pyin(x, fmin=150, fmax=2000, s
+          +r=16000, frame_length=1024)                                   
+      102          voiced_ratio = float(np.mean(voiced))
+      103          med = float(np.nanmedian(f0[voiced])) if voiced.any() 
+           else float('nan')
+      104          rows.append({'file': path.name, 'trimmed_sec': round(x
+           .size / 16000, 2),
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/generate.py)
+  ⎿  Added 6 lines, removed 3 lines
+      105                       'voiced_ratio': round(voiced_ratio, 4), '
+           median_f0_hz': round(med, 1)})
+      106          print(f'[screen {i + 1}/{n_pool}] {path.name} voiced={
+           voiced_ratio:.3f} f0={med:.0f}', flush=True)
+      107      rows.sort(key=lambda r: -r['voiced_ratio'])
+      108 -    for rank, r in enumerate(rows):                           
+      109 -        r['selected'] = int(rank < n_cat)                     
+      108 +    lo, hi = MEOW_F0_RANGE                                    
+      109 +    eligible = [r for r in rows if lo <= r['median_f0_hz'] <= 
+          +hi]  # NaN compares False                                     
+      110 +    selected = eligible[:n_cat]                               
+      111 +    for r in rows:                                            
+      112 +        r['selected'] = int(r in selected)                    
+      113      with open(out_csv, 'w', newline='') as f:
+      114          w = csv.DictWriter(f, fieldnames=list(rows[0]))
+      115          w.writeheader()
+      116          w.writerows(rows)
+      117      return [{'id': f'cat{k:02d}', 'kind': 'cat', 'gender': '-'
+           , 'speaker': r['file'].removesuffix('.wav'),
+      115 -             'files': [str(MEOW_DIR / r['file'])]} for k, r in
+          - enumerate(rows[:n_cat])]                                     
+      118 +             'files': [str(MEOW_DIR / r['file'])]} for k, r in
+          + enumerate(selected)]                                         
+      119  
+      120  
+      121  def build_reference(files):
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/generate.py)
+  ⎿  Added 1 line
+      29  JVS_DIR = pathlib.Path('/path/to/Datasets/jvs_ver1
+          ')
+      30  GENDER = {'male_masculine': 'M', 'female_feminine': 'F'}
+      31  MIN_REF_SEC = 4.0
+      32 +MEOW_F0_RANGE = (250.0, 1500.0)                                
+      33  
+      34  
+      35  def parse_args():
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Only 6 of the 8 planned sources were picked, because some speakers had no clip
+  of 3–7 s. Changing the selection to keep looking through speakers until it
+  has 4 per gender:
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/generate.py)
+  ⎿  Added 9 lines, removed 4 lines
+      59      for g in ('M', 'F'):
+      60          spks = sorted(k for k, clips in by_spk.items() if k[1] 
+          == g and len(clips) >= 3)
+      61          rng.shuffle(spks)
+      62 -        for spk in spks[:n_src]:                               
+      62 +        n_g = 0                                                
+      63 +        for spk in list(spks):                                 
+      64              clips = [c for c in sorted(by_spk[spk]) if 3.0 <= d
+          urations.get(c, 0) <= 7.0]
+      65              if clips:
+      65 -                sources.append({'id': f'cv{g}{len(sources):02d}
+         -', 'gender': g, 'speaker': spk[0][:12],                        
+      66 +                sources.append({'id': f'cv{g}{n_g:02d}', 'gende
+         +r': g, 'speaker': spk[0][:12],                                 
+      67                                  'files': [str(CV_DIR / 'clips' 
+          / rng.choice(clips))]})
+      67 -        for spk in spks[n_src:n_src + n_ref]:                  
+      68 -            refs.append({'id': f'cvref{g}{len(refs):02d}', 'kin
+         -d': 'human_open', 'gender': g,                                 
+      68 +                spks.remove(spk)                               
+      69 +                n_g += 1                                       
+      70 +                if n_g == n_src:                               
+      71 +                    break                                      
+      72 +        for k, spk in enumerate(spks[:n_ref]):  # disjoint from
+         + the source speakers                                           
+      73 +            refs.append({'id': f'cvref{g}{k:02d}', 'kind': 'hum
+         +an_open', 'gender': g,                                         
+      74                           'speaker': spk[0][:12],
+      75                           'files': [str(CV_DIR / 'clips' / c) fo
+          r c in sorted(by_spk[spk])[:6]]})
+      76      return sources, refs
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● All 112 conversions generated (48 human→cat plus 16 for each of the four
+  human-baseline conditions). Before writing the analysis and plotting script,
+  I'm loading the plotting guidance.
+
+● Skill(dataviz)  ⎿  Successfully loaded skill
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● I'll design the plots with orange for human→cat, blue for open-set, and aqua
+  for closed-set, using shape or hatching to distinguish intra- vs inter-gender
+  within each color—now writing the analysis script.
+
+● Write(experiment_01_cat_01/01.end_to_end_feasibility/analyze.py)
+  ⎿  Wrote 348 lines to
+     experiment_01_cat_01/01.end_to_end_feasibility/analyze.py
+       1 """Subexperiment 01 — analysis.
+       3 Reads data/manifest.csv written by generate.py and measures, for
+          every
+         arget
+       5 reference. Human-to-cat is compared with conventional VC baselin
+       6 (open/closed-set x intra/inter-gender).
+       7
+          cat
+       9 recordings and 24 kHz human recordings share one bandwidth):
+         over
+     … +430 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Validation revealed a units bug: MFCC distances are being miscalculated
+  because librosa's MFCCs are already dB-scaled, so applying the MCD constant
+  inflates them incorrectly. I'll switch to a plain Euclidean distance in MFCC
+  units, but first I'll check the plots before making the fix.
+
+  Read 4 files (ctrl+o to expand)
+
+● I've found LTAS distortion from resampler roll-off near 8 kHz (fix: restrict
+  to 100–7000 Hz) and noisy speaker-embedding cosine values (fix: drop the gap
+  ratio, keep raw cosine). I'm now investigating an F0 discrepancy where some
+  cat references show ~170 Hz despite screening values of 300–1200 Hz.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● I found two issues: cat target F0s are unachievable since the checkpoint's
+  fo_range caps at 880 Hz, and cat05's wide-range pYIN is picking up
+  low-frequency background noise instead of the meow. I'll switch to the
+  meow-band estimator (150–2000 Hz) used in screening for cat targets and log
+  both values in the CSV, then apply these fixes.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Rerun is clean and the numbers now sit on sensible scales. Checking the two
+  revised plots:
+
+  Read 2 files (ctrl+o to expand)
+
+● The F0 legend overlaps the 880 Hz label, so I'm moving it to the lower right
+  and rerunning:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Outputs look complete and consistent. Now I'll verify nothing was written
+  outside the experiment directory, since importing models and preprocesses
+  could have touched the repo's own __pycache__.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Nothing outside the directory was touched. Writing the README now.
+
+● Write(experiment_01_cat_01/01.end_to_end_feasibility/README.md)
+  ⎿  Wrote 144 lines to
+     experiment_01_cat_01/01.end_to_end_feasibility/README.md
+       1 # 01. End-to-end feasibility test
+       2
+       4
+       5 Check that the pretrained NVCNSF model (`/path/to
+         /checkpoints/`, step 500000) can run
+         erated "cat-like" sounds get to the target cat
+       7 acoustically. The comparison point is conventional human → human
+          VC with the same model and the same sources:
+       9 | condition | target reference | why it is a reference point |
+      10 |---|---|---|
+     … +211 lines (ctrl+o to expand)
+
+● The README quotes several specific numbers, so I'm checking them against the
+  result files:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● I need to correct an earlier claim: the "27% had no voiced frames" figure was
+  from the initial screening (200 Hz floor), but with the final 150 Hz floor
+  it's actually 0.8%, since low-frequency background now registers as voiced —
+  which is exactly why the F0 window filter is needed.
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/README.md)
+  ⎿  Added 3 lines, removed 3 lines
+      27  | closed-set refs | jvs `nonpara30` | jvs001 (M), jvs003 (M), j
+          vs002 (F), jvs004 (F); 3 utterances concatenated |
+      28  | cat refs | meow-10k `audios/` (16 kHz) | 120 random clips scr
+          eened with pYIN (150–2000 Hz); top 6 by voiced ratio with media
+          n F0 in 250–1500 Hz |
+      29  
+      30 -The cat screening step exists because most meow-10k clips are b
+         -ehaviour recordings, not vocalizations: 27 % of the            
+      31 -pool had no voiced frames at all, and a first ranking by voiced
+         - ratio alone selected clips whose "F0" was pinned at           
+      32 -the search floor (purrs / low-frequency background). The F0 win
+         -dow removes those. Screening results:                          
+      30 +The cat screening step exists because many meow-10k clips are b
+         +ehaviour recordings, not vocalizations. A first                
+      31 +ranking by voiced ratio alone picked clips whose "F0" was pinne
+         +d at the search floor (purrs / low-frequency                   
+      32 +background noise detected as voiced). The 250–1500 Hz median-F0
+         + window removes those. Screening results:                      
+      33  `data/cat_candidates.csv`.
+      34  
+      35  Selected cats: `cat00` fs_cat_class_00319, `cat01` tz_cat_class
+          _00415, `cat02` fs_cat_class_00201,
+
+● Update(experiment_01_cat_01/01.end_to_end_feasibility/README.md)
+  ⎿  Added 1 line, removed 1 line
+      110  - Small sample (8 sources, 6 cats), single seed. This is a fea
+           sibility check, not a statistical comparison; no
+      111    significance tests are reported.
+      112  - Cat clips are 16 kHz field recordings with background noise.
+            For one cat (cat05), the wide-range pYIN locks onto
+      113 -  low-frequency background at 157 Hz (vs 282 Hz in the 150–200
+          -0 Hz band). This is why cat target F0 uses the                
+      113 +  low-frequency background at 157 Hz (vs 280 Hz in the 150–200
+          +0 Hz band). This is why cat target F0 uses the                
+      114    meow-band estimate. Both values are kept in `metrics.csv` (`
+           f0_ref`, `f0_ref_meow`).
+      115  - Cat clips can mix meows with other sounds (purr, noise), and
+            the 2.73 s reference crop may include them.
+      116  - Utterance-mean MFCC and LTAS ignore temporal structure (a ca
+           t call's pitch contour, duration), which
+
+● I ran subexperiment 1 in 01.end_to_end_feasibility/
+  (experiment_01_cat_01/01.end_to_end_feasibility/). The model converts human
+  speech with cat references without errors, but the outputs still sound like
+  human voices. All results come from the final runs, and nothing was written
+  outside the experiment directory.
+
+  What was run: 8 Common Voice voices (4 male, 4 female) were each converted to
+  14 targets with the step-500000 checkpoint, giving 112 conversions:
+  - 6 cat clips from meow-10k (human→cat).
+  - 4 unseen Common Voice voices (open-set, same and other gender).
+  - 4 jvs voices the model was trained on (closed-set, same and other gender).
+
+  "Gap closed" in the table is the share of the original distance between the
+  source and the target that the conversion removed.
+
+  ┌────────────────────────┬──────────────┬──────────────────┬─────────────┐
+  │       condition        │ gap closed   │   gap closed     │  F0 error   │
+  │                        │    (MFCC)    │    (spectrum)    │             │
+  ├────────────────────────┼──────────────┼──────────────────┼─────────────┤
+  │ human→cat              │ 0.15         │ 0.10             │ 15.9        │
+  │                        │              │                  │ semitones   │
+  ├────────────────────────┼──────────────┼──────────────────┼─────────────┤
+  │ open-set, same / other │ 0.22 / 0.28  │ 0.20 / 0.23      │ 6.5 / 5.9   │
+  │  gender                │              │                  │             │
+  ├────────────────────────┼──────────────┼──────────────────┼─────────────┤
+  │ closed-set, same /     │ 0.31 / 0.39  │ 0.17 / 0.22      │ 3.2 / 2.2   │
+  │ other gender           │              │                  │             │
+  └────────────────────────┴──────────────┴──────────────────┴─────────────┘
+
+  Main findings:
+  - Timbre: after conversion, the outputs are about as far from the target cat
+    as a real human recording is from a real cat.
+  - Pitch: output pitch stays at 65–400 Hz, while the cats are at 280–1230 Hz.
+    Part of this is built in: the model's pitch range (fo_range in hparams.py)
+    stops at 880 Hz, so the highest cat cannot be reached at all.
+  - Compared with normal VC: this is not just a bigger version of the
+    male↔female change. Unseen human voices explain only part of the shortfall;
+    the rest is specific to cats.
+  - Speaker-embedding score: the model's own speaker encoder rates the outputs
+    as fairly cat-like (cosine 0.37). The same encoder produced the
+    conditioning, so I treat this as optimistic. Subexperiment 2 should check it
+    with an independent classifier.
+
+  Problems found during validation, all fixed and rerun:
+  - Crash: importing the repo's preprocessing code after JAX started caused a
+    segfault. vc.py (experiment_01_cat_01/01.end_to_end_feasibility/vc.py) now
+    loads TensorFlow first, in the same order as infer.py.
+  - Cat clip selection: ranking clips only by how much of them was voiced picked
+    purrs and low-frequency noise. Selection now also requires a median pitch
+    of 250–1500 Hz.
+  - MFCC distance: I had wrongly scaled the MFCC distance as if it were in dB.
+    It is now a plain distance in librosa's MFCC units.
+  - Spectrum band: the spectrum comparison was distorted by the resampler's
+    roll-off near 8 kHz, so the band is now 100 Hz–7 kHz.
+  - Cat pitch: for one cat (cat05), the wide-range pitch tracker locked onto
+    background noise (157 Hz instead of about 280 Hz). Cat targets now use the
+    150–2000 Hz estimate, and both values are kept in metrics.csv.
+  - Speaker-embedding gap: the "gap closed" for the speaker embedding was too
+    noisy to use, so it was removed and only the raw cosine is reported.
+  - Small fixes: two of the 8 voices were initially skipped because of a
+    selection bug, the F0 plot legend overlapped a label, and one README figure
+    came from an earlier run. All three are corrected.
+
+  Limits: this is a feasibility check with 8 voices, 6 cats and one random seed,
+  so there are no significance tests. The cat clips are noisy 16 kHz field
+  recordings.
+
+  Everything else (scripts, audio, CSV/JSON results, plots, logs) is in that
+  folder. Methods, results, limitations and how to reproduce are in the README
+  (experiment_01_cat_01/01.end_to_end_feasibility/README.md); the main plots are
+  results/gap_closed.png and results/f0_target_vs_output.png. Subexperiments
+  2–4 can build on vc.py and generate.py.
+
+❯ From the result of 1st experiment, I found major fault of model or training.
+  To realize the cause, conduct experiment 3 secondly. I shall focus on whether
+  the F0 of cats are misinfered at F0 generation step or F0 are broken at the
+  decoder step.
+  ⎿  14 skills available
+
+● I'll start by reading how the model generates F0 (the condition module) and
+  how the decoder consumes it, so the experiment can test the two stages
+  separately.
+
+  Searched for 1 pattern, read 2 files (ctrl+o to expand)
+
+● I've traced the F0 pipeline: generation computes pitch from speaker
+  mean/spread and content contour, while the decoder uses that F0 to drive a
+  cyclic-noise source and filters. Since F0 can be overridden before synthesis,
+  I'll inject the actual cat F0 and check if the decoder renders it correctly,
+  starting by checking the source module for its own pitch limits.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● I've laid out subexperiment 3: self-reconstruction tests isolating
+  generation-stage vs decoder-stage F0 error, including oracle injection above
+  880 Hz and human baselines, with conversion now run as a single call per
+  utterance instead of independent blocks. Next, I'll write the model wrapper
+  for this.
+
+● Write(experiment_01_cat_01/03.acoustic_similarity_f0_stage/model.py)
+  ⎿  Wrote 94 lines to
+     experiment_01_cat_01/03.acoustic_similarity_f0_stage/model.py
+      1 """Stage-wise access to the NVCNSF generator for subexperiment 03
+      2
+      3 Unlike the subexperiment-01 wrapper, which only exposes end-to-en
+      4 this exposes the two stages separately so that the condition (F0
+        generation)
+        runs:
+      6
+      8     cond = condition(c, z)       F0 generation: fo = 10 * 2^((mu(
+        z) + sigma(z) * s(c)) / 12)
+        eural filters
+     … +112 lines (ctrl+o to expand)
+
+● Quick shape check on the condition outputs:
+
+  Ran 1 shell command (ctrl+o to expand)
+● The codebook path in infer.py is stale for this checkpoint. Locating it and
+  checking how z_q is formed:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● It's an SQ-VAE head (SpeakerSQVAEHead_0). With temperature=None, z_q is the
+  nearest of 512 codebook vectors. Fixing the path:
+
+● Update(experiment_01_cat_01/03.acoustic_similarity_f0_stage/model.py)
+  ⎿  Added 2 lines, removed 1 line
+      49          apply = g_state.apply_fn
+      50          self.block_length = hp['sample_length']
+      51          self.ref_length = 2 * hp['sample_length']
+      52 +        # with temperature=None, z_q is the nearest of these 51
+         +2 codes (SpeakerSQVAEHead)                                     
+      53          self.codebook = np.asarray(
+      53 -            self.params['params']['speaker_encoder']['SpeakerVQ
+         -VAEHead_0']['codebook'])                                       
+      54 +            self.params['params']['speaker_encoder']['SpeakerSQ
+         +VAEHead_0']['codebook'])                                       
+      55  
+      56          self._speaker = jax.jit(lambda p, r, rng: apply(p, r, N
+          one, method='speaker_encode', rngs=rng)[1])
+      57          self._content = jax.jit(lambda p, x, rng: apply(p, x, m
+          ethod='content_encode', rngs=rng)[0])
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Full-utterance synthesis needs ~11GB GPU memory since the decoder's dilated
+  filters run at full sample rate, so I'll switch to block-wise processing with
+  carried stream state, like infer.py does, to keep bounded memory with full
+  causal context. Also notable: for cat00 (true pitch ~1.2kHz), the speaker mean
+  μ decodes to just 164 Hz.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Streaming decodes 6s of audio in about 5s once compiled, but μ shifted from
+  164 to 289 Hz because the longer reference crop picked a different z_q code—so
+  code selection is unstable for cats. I'll write the generation script next.
+
+● Write(experiment_01_cat_01/03.acoustic_similarity_f0_stage/generate.py)
+  ⎿  Wrote 176 lines to
+     experiment_01_cat_01/03.acoustic_similarity_f0_stage/generate.py
+       1 """Subexperiment 03 — data generation: stage-wise F0 probes.
+       3 Every clip is reconstructed with its own speaker code (self-reco
+         nstruction),
+         ages:
+       5
+       7   zq             z_q (as used)  model (normal operation)
+       8   z              continuous z   model (bypasses the 512-code qua
+       9   oracle_fo      z_q            F0 := true F0 of the input; voic
+         ing from model
+         ing of the input
+     … +199 lines (ctrl+o to expand)
+
+● Running generation in the background (cat screening over 300 clips plus 128
+  syntheses):
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● While generation runs, I'm writing an analysis script that breaks pitch error
+  into generation, decoder, end-to-end, and voicing/aperiodicity/quantization
+  stages, all measured in semitones on reliably voiced frames.
+
+● Write(experiment_01_cat_01/03.acoustic_similarity_f0_stage/analyze.py)
+  ⎿  Wrote 373 lines to
+     experiment_01_cat_01/03.acoustic_similarity_f0_stage/analyze.py
+       1 """Subexperiment 03 — analysis: where is cat F0 lost, F0 generat
+       2
+       3 Reads data/ from generate.py. All pitch errors are in semitones
+       4 evaluated on "truth frames": frames where the input is reliably
+       5 (pYIN voiced, prob > 0.5; for cats also F0 >= 200 Hz).
+       6
+       8   generation   cond F0 vs true F0                       (setting
+          zq; z = without quantizer)
+         nth render what it is given?)
+         fo, oracle_fo_vf)
+     … +442 lines (ctrl+o to expand)
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+● Generation is running (conda run buffers the log until the process exits). The
+  analysis script is ready and I'll run it as soon as generation finishes.
+
+● Background command "Run subexperiment 3 data generation" completed (exit code
+0)
+
+  Listed 1 directory (ctrl+o to expand)
+
+● All 128 reconstructions are done, and interestingly, cat sounds map to the
+  same codes (218, 322, 323, 280, 306) as human speakers. Running the analysis
+  now.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● These numbers look off—low accuracy scores and pYIN only marking ~47% of
+  frames as voiced point to a likely time offset from the causal model's latency
+  rather than a real issue, and spectral flatness needs a log scale since it's
+  showing 0.000 everywhere. I'll check the alignment next.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Found that the low human-track scores were measurement artifacts — overly
+  strict voicing threshold and uncorrected 10-30ms decoder latency — while the
+  decoder actually tracks condition F0 98-99.8% of the time. jvsM01 is a 0%
+  outlier, so I'll investigate that case before applying any fixes.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Low male voices show genuine octave-doubling in the decoder (58 Hz vs 113 Hz),
+  confirmed across two pYIN ranges, so I'll track this as its own octave-error
+  metric. I'll also refine the analysis: use pYIN's voiced decision for output
+  voicing, estimate per-clip decoder latency, and add voiced-only pitch-band
+  accuracy plus spectral flatness as new metrics.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Both stages fail at high pitch: generation drops to 0% above 880 Hz, and even
+  with the true F0 injected, decoder accuracy craters above 440 Hz (23%, mostly
+  unvoiced/octave errors). To rule out timbre as the confound, I'm running a
+  pitch-sweep test shifting human and cat F0 across ±24 semitones to see if
+  decoder accuracy depends purely on absolute frequency.
+
+● Write(experiment_01_cat_01/03.acoustic_similarity_f0_stage/generate_sweep.py)
+  ⎿  Wrote 53 lines to
+     experiment_01_cat_01/03.acoustic_similarity_f0_stage/generate_sweep.py
+       1 """Subexperiment 03 — supplemental data generation: decoder pitc
+       2
+       3 Question: when the decoder fails to render a cat's F0 even thoug
+       4 injected (setting oracle_fo_vf in generate.py), is that because
+       5 absolute frequency, or because of the cat's conditioning (speake
+         r code /
+       7
+       8 Each clip from generate.py is re-synthesized with its own model
+       9 (z_q), its true voicing, and its true F0 shifted by k semitones:
+          range)
+     … +56 lines (ctrl+o to expand)
+
+● Update(experiment_01_cat_01/03.acoustic_similarity_f0_stage/generate_sweep.py)
+  ⎿  Added 1 line, removed 2 lines
+      12  If rendering accuracy depends on the injected frequency alone, 
+          the two groups
+      13  fall on one curve.
+      14  
+      15 -Outputs: data/sweep/<clip>__<k>.wav, data/sweep/oracle_frames.n
+         -pz                                                             
+      16 -(requires data/ from generate.py).                             
+      15 +Outputs: data/sweep/<clip>__<k>.wav (requires data/ from genera
+         +te.py).                                                        
+      16  """
+      17  import csv
+      18  import pathlib
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● While the sweep runs, I'm adding its analysis: accuracy, voicing and
+  octave-error rates by absolute injected F0 band, with cats and humans plotted
+  as separate curves.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Background command "Run decoder pitch-sweep generation" completed (exit code
+0)
+
+  Searched for 1 pattern, ran 1 shell command (ctrl+o to expand)
+
+● The sweep never ran: model.py puts subexperiment 1's directory first on the
+  import path, so from generate import … loaded the wrong generate.py. Making
+  that path entry lower-priority:
+
+● Update(experiment_01_cat_01/03.acoustic_similarity_f0_stage/model.py)  ⎿  Added 2 lines, removed 1 line
+      19  import sys
+      20  
+      21  HERE = pathlib.Path(__file__).resolve().parent
+      22 -sys.path.insert(0, str(HERE.parent / '01.end_to_end_feasibility
+         -'))                                                            
+      22 +# appended (not prepended) so this directory's own generate.py 
+         +is not shadowed by subexp 01's                                 
+      23 +sys.path.append(str(HERE.parent / '01.end_to_end_feasibility'))
+      24  import vc  # noqa: E402  (also puts the repository root on sys.
+          path; loads TF before JAX)
+      25  from vc import SR, CHECKPOINT_DIR, load_audio, trim_silence  # 
+          noqa: E402,F401
+      26  
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Meanwhile, checking the plots from the main analysis:
+
+  Read 4 files (ctrl+o to expand)
+
+● The plots make the picture concrete:
+  - Normal operation: the error is created at F0 generation. For cats, the
+    speaker mean μ falls in 150–330 Hz whatever the true pitch (290–1240 Hz).
+    The generated contour doesn't follow the cat's intonation either (contour r
+    = 0.04, vs 0.86 for jvs). The decoder then faithfully renders this wrong F0:
+    it follows the condition's F0 on 72 % of cat frames, as well as for humans.
+  - Decoder with correct F0 injected: it tracks up to about 550 Hz. From roughly
+    550 to 880 Hz the output collapses to around 330–400 Hz, which is not an
+    octave error; in cat01 it is pinned near 380 Hz while the target is 650 Hz.
+    Above 880 Hz (cat05, 1.2 kHz) nothing voiced comes out at all.
+
+  I'm waiting for the pitch sweep to confirm whether this ceiling depends on
+  frequency rather than cat conditioning.
+
+● Background command "Rerun sweep generation and analysis" completed (exit code
+0)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● The sweep shows decoder accuracy depends on absolute injected frequency, with
+  a hard ceiling around 550 Hz regardless of cat or human conditioning—and
+  ruling out the quantizer as the cause (continuous z and z_q give similar μ).
+  Now checking the training data's F0 range to see if it explains this ceiling.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● The jvs metadata caps speaker F0 at 480 Hz (female median max 410 Hz), which
+  matches the decoder ceiling. Checking whether training used pitch-shift
+  augmentation that would have widened that range:
+
+  Searched for 1 pattern, read 1 file, ran 2 shell commands (ctrl+o to expand)
+
+● Training uses offline augmentation, expanding each jvs speaker into 15
+  identities × 11 pitch variants, but the shift range isn't documented in this
+  repo, so I'll flag that for you to verify. Now let's look at the sweep plot.
+
+  Read 1 file (ctrl+o to expand)
+
+● The sweep curves overlap: both drop to zero between 566 and 800 Hz. Writing
+  the README:
+
+● Write(experiment_01_cat_01/03.acoustic_similarity_f0_stage/README.md)
+  ⎿  Wrote 203 lines to
+     experiment_01_cat_01/03.acoustic_similarity_f0_stage/README.md
+       1 # 03. Acoustic similarity analysis: where is cat F0 lost?
+       3 ## Objective
+       4
+       5 Subexperiment 01 found that human→cat outputs keep a human pitch
+       6 an error of about 16 semitones. This subexperiment finds **which
+          stage loses the cat F0**:
+       8 - **F0 generation** (`Condition`): the model predicts
+       9   `fo = 10 · 2^((μ(z) + σ(z) · s(c)) / 12)`, clipped to 27.5–880
+          Hz. The speaker code `z` sets the mean μ and the
+         `s` (bounded to ±3 by tanh).
+     … +282 lines (ctrl+o to expand)
+
+● Checking the README's specific numbers against the outputs:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● I spotted some inaccuracies in the README—the jvs speaker IDs, the
+  cat-to-human code mapping (11 of 16, not 12), and the μ and true-F0
+  ranges—plus the above-880 Hz share needs both per-clip and pooled values.
+  Fixing these now.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+● Both stages are broken. In normal use the wrong cat pitch is created at the F0
+  generation step, and the decoder then plays it back faithfully. But the
+  decoder also can't produce pitch above about 550 Hz even when given the
+  correct cat F0. Everything is in 03.acoustic_similarity_f0_stage/
+  (experiment_01_cat_01/03.acoustic_similarity_f0_stage/README.md).
+
+  How I tested it: I rebuilt 16 cat clips and 16 human clips (8 jvs training
+  speakers, 8 Common Voice) from their own speaker code. Input and output are
+  then time-aligned, so the input's measured pitch can be compared frame by
+  frame at each stage. To test the decoder alone, I fed it the true F0 directly
+  in place of the model's prediction.
+
+  1. F0 generation is where the error comes from in normal use.
+  - Speaker mean μ: for cats it stays at 144–323 Hz no matter the true pitch
+    (325–1237 Hz), on average 14.5 semitones too low. For jvs speakers the
+    offset is −3.2 semitones, for Common Voice +1.2.
+  - Not the quantizer: the continuous speaker code gives the same μ (235 Hz vs
+    243 Hz). Cat embeddings sit far from every codebook entry, yet 11 of 16 cats
+    are assigned codes that human speakers also use.
+  - Contour: the cat's pitch movement is lost (correlation 0.04, vs 0.86 for
+    jvs). The contour comes only from the content encoder, so cat pitch glides
+    aren't in the content features.
+  - Decoder in normal use: it follows the F0 it is given for 72 % of cat frames,
+    the same as for humans. It renders the wrong human-range pitch accurately.
+
+  2. The decoder can't render pitch above about 550 Hz.
+
+  ┌────────────────────────┬────────────────────────────────────────────────┐
+  │ cat frames, true pitch │     decoder correct when given the true F0     │
+  ├────────────────────────┼────────────────────────────────────────────────┤
+  │ 200–440 Hz             │ 93 %                                           │
+  ├────────────────────────┼────────────────────────────────────────────────┤
+  │ 440–880 Hz             │ 22 % (output falls to an unrelated 330–400 Hz) │
+  ├────────────────────────┼────────────────────────────────────────────────┤
+  │ above 880 Hz           │ 0 % (no voiced output at all)                  │
+  └────────────────────────┴────────────────────────────────────────────────┘
+
+  I added a pitch-sweep test (shifting human pitch up and cat pitch down) to
+  check whether the cat speaker code causes this. It doesn't: both fail in the
+  same band (0–1 % correct at 566–800 Hz), and cats lowered into 283–566 Hz
+  render correctly (82–92 %). The ceiling matches the training data, where jvs
+  speakers top out at 480 Hz. About 80 % of cat voiced frames are above 440 Hz.
+
+  3. A third limit is waiting behind these two. The 880 Hz pitch cap in
+  hparams.py (fo_range) clips nothing today, because generated F0 never gets
+  near it. Once generation and the decoder are fixed, it would cut 7–10 % of cat
+  frames.
+
+  So fixing F0 generation alone would only lift pitch accuracy to the
+  given-true-F0 level (38 %). The decoder also needs training data with pitch up
+  to about 1.5 kHz.
+
+  Problems found during validation, all fixed and rerun:
+  - Voicing too strict: my first pass judged output voicing too strictly and
+    ignored the decoder's 10–30 ms delay. That made even jvs speakers look badly
+    reconstructed.
+  - Wrong script imported: the pitch sweep initially loaded subexperiment 1's
+    generate.py instead of its own.
+  - Wrong README figures: several numbers didn't match the outputs; they were
+    corrected against them.
+
+  Other things found along the way:
+  - Codebook path: the speaker codebook path in infer.py (SpeakerVQVAEHead_0) is
+    wrong for this checkpoint. It should be SpeakerSQVAEHead_0.
+  - Low-pitch octave errors: below about 140 Hz the decoder renders pitch an
+    octave too low 64–70 % of the time. This already affects human male voices.
+  - Subexperiment 1 caveat: its wrapper restarted the model state every 1.37 s
+    instead of carrying it over as infer.py does. Subexperiment 3 does it
+    correctly. Rerunning subexperiment 1 with the new wrapper would make its
+    numbers more exact.
+  - Please check: training uses jvs expanded offline into 11 pitch variants per
+    speaker. The pitch-shift range isn't recorded in this repo. The ceiling
+    suggests it doesn't go much above 480 Hz.
+
+  Nothing was written outside the experiment directory.
+  

@@ -1,0 +1,125 @@
+2026-10-08 02:05:51.857911: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1/112] conv/cvM00__cvrefM00.wav
+[2/112] conv/cvM00__cvrefM01.wav
+[3/112] conv/cvM00__cvrefF00.wav
+[4/112] conv/cvM00__cvrefF01.wav
+[5/112] conv/cvM00__jvs001M.wav
+[6/112] conv/cvM00__jvs003M.wav
+[7/112] conv/cvM00__jvs002F.wav
+[8/112] conv/cvM00__jvs004F.wav
+[9/112] conv/cvM00__cat00.wav
+[10/112] conv/cvM00__cat01.wav
+[11/112] conv/cvM00__cat02.wav
+[12/112] conv/cvM00__cat03.wav
+[13/112] conv/cvM00__cat04.wav
+[14/112] conv/cvM00__cat05.wav
+[15/112] conv/cvM01__cvrefM00.wav
+[16/112] conv/cvM01__cvrefM01.wav
+[17/112] conv/cvM01__cvrefF00.wav
+[18/112] conv/cvM01__cvrefF01.wav
+[19/112] conv/cvM01__jvs001M.wav
+[20/112] conv/cvM01__jvs003M.wav
+[21/112] conv/cvM01__jvs002F.wav
+[22/112] conv/cvM01__jvs004F.wav
+[23/112] conv/cvM01__cat00.wav
+[24/112] conv/cvM01__cat01.wav
+[25/112] conv/cvM01__cat02.wav
+[26/112] conv/cvM01__cat03.wav
+[27/112] conv/cvM01__cat04.wav
+[28/112] conv/cvM01__cat05.wav
+[29/112] conv/cvM02__cvrefM00.wav
+[30/112] conv/cvM02__cvrefM01.wav
+[31/112] conv/cvM02__cvrefF00.wav
+[32/112] conv/cvM02__cvrefF01.wav
+[33/112] conv/cvM02__jvs001M.wav
+[34/112] conv/cvM02__jvs003M.wav
+[35/112] conv/cvM02__jvs002F.wav
+[36/112] conv/cvM02__jvs004F.wav
+[37/112] conv/cvM02__cat00.wav
+[38/112] conv/cvM02__cat01.wav
+[39/112] conv/cvM02__cat02.wav
+[40/112] conv/cvM02__cat03.wav
+[41/112] conv/cvM02__cat04.wav
+[42/112] conv/cvM02__cat05.wav
+[43/112] conv/cvM03__cvrefM00.wav
+[44/112] conv/cvM03__cvrefM01.wav
+[45/112] conv/cvM03__cvrefF00.wav
+[46/112] conv/cvM03__cvrefF01.wav
+[47/112] conv/cvM03__jvs001M.wav
+[48/112] conv/cvM03__jvs003M.wav
+[49/112] conv/cvM03__jvs002F.wav
+[50/112] conv/cvM03__jvs004F.wav
+[51/112] conv/cvM03__cat00.wav
+[52/112] conv/cvM03__cat01.wav
+[53/112] conv/cvM03__cat02.wav
+[54/112] conv/cvM03__cat03.wav
+[55/112] conv/cvM03__cat04.wav
+[56/112] conv/cvM03__cat05.wav
+[57/112] conv/cvF00__cvrefM00.wav
+[58/112] conv/cvF00__cvrefM01.wav
+[59/112] conv/cvF00__cvrefF00.wav
+[60/112] conv/cvF00__cvrefF01.wav
+[61/112] conv/cvF00__jvs001M.wav
+[62/112] conv/cvF00__jvs003M.wav
+[63/112] conv/cvF00__jvs002F.wav
+[64/112] conv/cvF00__jvs004F.wav
+[65/112] conv/cvF00__cat00.wav
+[66/112] conv/cvF00__cat01.wav
+[67/112] conv/cvF00__cat02.wav
+[68/112] conv/cvF00__cat03.wav
+[69/112] conv/cvF00__cat04.wav
+[70/112] conv/cvF00__cat05.wav
+[71/112] conv/cvF01__cvrefM00.wav
+[72/112] conv/cvF01__cvrefM01.wav
+[73/112] conv/cvF01__cvrefF00.wav
+[74/112] conv/cvF01__cvrefF01.wav
+[75/112] conv/cvF01__jvs001M.wav
+[76/112] conv/cvF01__jvs003M.wav
+[77/112] conv/cvF01__jvs002F.wav
+[78/112] conv/cvF01__jvs004F.wav
+[79/112] conv/cvF01__cat00.wav
+[80/112] conv/cvF01__cat01.wav
+[81/112] conv/cvF01__cat02.wav
+[82/112] conv/cvF01__cat03.wav
+[83/112] conv/cvF01__cat04.wav
+[84/112] conv/cvF01__cat05.wav
+[85/112] conv/cvF02__cvrefM00.wav
+[86/112] conv/cvF02__cvrefM01.wav
+[87/112] conv/cvF02__cvrefF00.wav
+[88/112] conv/cvF02__cvrefF01.wav
+[89/112] conv/cvF02__jvs001M.wav
+[90/112] conv/cvF02__jvs003M.wav
+[91/112] conv/cvF02__jvs002F.wav
+[92/112] conv/cvF02__jvs004F.wav
+[93/112] conv/cvF02__cat00.wav
+[94/112] conv/cvF02__cat01.wav
+[95/112] conv/cvF02__cat02.wav
+[96/112] conv/cvF02__cat03.wav
+[97/112] conv/cvF02__cat04.wav
+[98/112] conv/cvF02__cat05.wav
+[99/112] conv/cvF03__cvrefM00.wav
+[100/112] conv/cvF03__cvrefM01.wav
+[101/112] conv/cvF03__cvrefF00.wav
+[102/112] conv/cvF03__cvrefF01.wav
+[103/112] conv/cvF03__jvs001M.wav
+[104/112] conv/cvF03__jvs003M.wav
+[105/112] conv/cvF03__jvs002F.wav
+[106/112] conv/cvF03__jvs004F.wav
+[107/112] conv/cvF03__cat00.wav
+[108/112] conv/cvF03__cat01.wav
+[109/112] conv/cvF03__cat02.wav
+[110/112] conv/cvF03__cat03.wav
+[111/112] conv/cvF03__cat04.wav
+[112/112] conv/cvF03__cat05.wav
+condition          mfcc_src_ref    mfcc_conv_ref  mfcc_gap_closed  ltas_gap_closed      spk_src_ref     spk_conv_ref        f0_target          f0_conv    f0_model_pred        f0_err_st
+human2cat                62.823           53.163            0.148            0.101            0.098            0.373          546.290          228.072          215.758           15.920
+open_intra               37.619           28.354            0.220            0.204            0.329            0.580          158.103          169.478          187.368            6.519
+open_inter               39.904           28.598            0.284            0.226           -0.009            0.524          158.103          202.082          187.214            5.922
+closed_intra             38.924           26.108            0.310            0.171            0.674            0.745          191.223          218.178          201.738            3.203
+closed_inter             45.069           27.196            0.392            0.218           -0.461            0.656          191.223          210.216          199.511            2.159
+spread cat-cat: mfcc 58.25, ltas 12.66, spk_cos 0.327
+spread human-human: mfcc 32.95, ltas 7.35, spk_cos 0.058
+spread cat-human: mfcc 55.31, ltas 11.32, spk_cos 0.154
+
