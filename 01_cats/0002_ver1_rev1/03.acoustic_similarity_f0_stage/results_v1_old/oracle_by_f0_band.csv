@@ -1,0 +1,6 @@
+group,band_hz,n_frames,fo_zq_acc,fo_zq_voiced,fo_zq_acc_if_voiced,fo_zq_octave,out_zq_acc,out_zq_voiced,out_zq_acc_if_voiced,out_zq_octave,out_oracle_fo_acc,out_oracle_fo_voiced,out_oracle_fo_acc_if_voiced,out_oracle_fo_octave,out_oracle_fo_vf_acc,out_oracle_fo_vf_voiced,out_oracle_fo_vf_acc_if_voiced,out_oracle_fo_vf_octave
+cat,200-440,1096,0.5027,1.0,0.5027,0.0,0.5055,1.0,0.5055,0.0,0.9708,0.979,0.9916,0.0,0.9297,0.9626,0.9659,0.0
+cat,440-880,4284,0.0303,1.0,0.0303,0.0906,0.0175,0.8866,0.0197,0.0966,0.2295,0.4213,0.5446,0.1994,0.2171,0.4052,0.5357,0.2074
+cat,880-2000,569,0.0,1.0,0.0,0.0,0.0,0.522,0.0,0.0,0.0,0.0,nan,nan,0.0,0.0,nan,nan
+human,200-440,1911,0.3051,1.0,0.3051,0.0,0.2998,0.9838,0.3048,0.0,0.855,0.9335,0.9159,0.0,0.8085,0.9152,0.8834,0.0
+human,50-200,1742,0.2417,1.0,0.2417,0.0006,0.1171,0.8726,0.1342,0.0803,0.5086,0.7819,0.6505,0.2386,0.4036,0.6848,0.5893,0.2733

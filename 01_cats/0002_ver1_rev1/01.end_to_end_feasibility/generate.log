@@ -1,0 +1,240 @@
+2026-11-21 19:11:01.258467: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+[screen 1/120] fs_cat_class_00445.wav voiced=0.836 f0=150
+[screen 2/120] fs_cat_class_00090.wav voiced=0.022 f0=1995
+[screen 3/120] fs_cat_class_00463.wav voiced=0.110 f0=1995
+[screen 4/120] fs_cat_class_00319.wav voiced=0.898 f0=1228
+[screen 5/120] fs_cat_class_00233.wav voiced=0.070 f0=439
+[screen 6/120] fs_cat_class_00426.wav voiced=0.211 f0=1995
+[screen 7/120] tz_cat_class_00132.wav voiced=0.715 f0=464
+[screen 8/120] fs_cat_class_00804.wav voiced=0.839 f0=191
+[screen 9/120] fs_cat_class_00770.wav voiced=0.000 f0=nan
+[screen 10/120] tz_cat_class_00313.wav voiced=0.653 f0=654
+[screen 11/120] fs_cat_class_00329.wav voiced=0.767 f0=225
+[screen 12/120] tz_cat_class_00415.wav voiced=0.797 f0=345
+[screen 13/120] tz_cat_class_00193.wav voiced=0.685 f0=333
+[screen 14/120] fs_cat_class_00323.wav voiced=0.014 f0=1995
+[screen 15/120] tz_cat_class_00348.wav voiced=0.226 f0=760
+[screen 16/120] tz_cat_class_00025.wav voiced=0.594 f0=1193
+[screen 17/120] tz_cat_class_00060.wav voiced=0.512 f0=792
+[screen 18/120] tz_cat_class_00261.wav voiced=0.597 f0=356
+[screen 19/120] tz_cat_class_00208.wav voiced=0.390 f0=507
+[screen 20/120] fs_cat_class_00687.wav voiced=0.050 f0=150
+[screen 21/120] tz_cat_class_00214.wav voiced=0.311 f0=815
+[screen 22/120] tz_cat_class_00215.wav voiced=0.463 f0=783
+[screen 23/120] fs_cat_class_00434.wav voiced=0.066 f0=1995
+[screen 24/120] tz_cat_class_00305.wav voiced=0.437 f0=457
+[screen 25/120] fs_cat_class_00469.wav voiced=0.277 f0=150
+[screen 26/120] fs_cat_class_00023.wav voiced=0.317 f0=583
+[screen 27/120] fs_cat_class_00725.wav voiced=0.010 f0=1995
+[screen 28/120] fs_cat_class_00678.wav voiced=0.200 f0=150
+[screen 29/120] fs_cat_class_00686.wav voiced=0.773 f0=261
+[screen 30/120] fs_cat_class_00076.wav voiced=0.500 f0=1995
+[screen 31/120] tz_cat_class_00269.wav voiced=0.720 f0=544
+[screen 32/120] fs_cat_class_00551.wav voiced=0.328 f0=150
+[screen 33/120] tz_cat_class_00428.wav voiced=0.759 f0=535
+[screen 34/120] fs_cat_class_00340.wav voiced=0.208 f0=496
+[screen 35/120] fs_cat_class_00806.wav voiced=0.083 f0=1995
+[screen 36/120] tz_cat_class_00387.wav voiced=0.762 f0=563
+[screen 37/120] fs_cat_class_00627.wav voiced=0.044 f0=1015
+[screen 38/120] tz_cat_class_00157.wav voiced=0.562 f0=380
+[screen 39/120] fs_cat_class_00146.wav voiced=0.426 f0=150
+[screen 40/120] fs_cat_class_00187.wav voiced=0.103 f0=1995
+[screen 41/120] tz_cat_class_00251.wav voiced=0.367 f0=573
+[screen 42/120] fs_cat_class_00084.wav voiced=0.307 f0=181
+[screen 43/120] fs_cat_class_00482.wav voiced=0.243 f0=739
+[screen 44/120] fs_cat_class_00286.wav voiced=0.899 f0=150
+[screen 45/120] fs_cat_class_00087.wav voiced=0.439 f0=1995
+[screen 46/120] fs_cat_class_00642.wav voiced=0.302 f0=685
+[screen 47/120] fs_cat_class_00035.wav voiced=0.629 f0=649
+[screen 48/120] tz_cat_class_00112.wav voiced=0.697 f0=519
+[screen 49/120] fs_cat_class_00705.wav voiced=0.774 f0=282
+[screen 50/120] fs_cat_class_00350.wav voiced=0.769 f0=371
+[screen 51/120] fs_cat_class_00324.wav voiced=0.673 f0=452
+[screen 52/120] tz_cat_class_00137.wav voiced=0.497 f0=792
+[screen 53/120] fs_cat_class_00790.wav voiced=0.099 f0=1995
+[screen 54/120] tz_cat_class_00228.wav voiced=0.548 f0=709
+[screen 55/120] fs_cat_class_00812.wav voiced=0.136 f0=1995
+[screen 56/120] tz_cat_class_00279.wav voiced=0.509 f0=730
+[screen 57/120] tz_cat_class_00222.wav voiced=0.742 f0=226
+[screen 58/120] fs_cat_class_00072.wav voiced=0.096 f0=150
+[screen 59/120] tz_cat_class_00369.wav voiced=0.651 f0=636
+[screen 60/120] fs_cat_class_00201.wav voiced=0.795 f0=385
+[screen 61/120] tz_cat_class_00254.wav voiced=0.213 f0=235
+[screen 62/120] tz_cat_class_00423.wav voiced=0.699 f0=553
+[screen 63/120] fs_cat_class_00168.wav voiced=0.396 f0=150
+[screen 64/120] tz_cat_class_00067.wav voiced=0.328 f0=158
+[screen 65/120] fs_cat_class_00443.wav voiced=0.412 f0=325
+[screen 66/120] fs_cat_class_00618.wav voiced=0.148 f0=1039
+[screen 67/120] tz_cat_class_00290.wav voiced=0.647 f0=335
+[screen 68/120] tz_cat_class_00419.wav voiced=0.795 f0=566
+[screen 69/120] tz_cat_class_00049.wav voiced=0.543 f0=792
+[screen 70/120] tz_cat_class_00181.wav voiced=0.656 f0=636
+[screen 71/120] fs_cat_class_00826.wav voiced=0.056 f0=150
+[screen 72/120] tz_cat_class_00394.wav voiced=0.824 f0=150
+[screen 73/120] fs_cat_class_00500.wav voiced=0.029 f0=1995
+[screen 74/120] fs_cat_class_00045.wav voiced=0.495 f0=925
+[screen 75/120] fs_cat_class_00002.wav voiced=0.107 f0=150
+[screen 76/120] fs_cat_class_00393.wav voiced=0.959 f0=150
+[screen 77/120] fs_cat_class_00646.wav voiced=0.622 f0=286
+[screen 78/120] tz_cat_class_00232.wav voiced=0.620 f0=1221
+[screen 79/120] tz_cat_class_00361.wav voiced=0.511 f0=627
+[screen 80/120] fs_cat_class_00546.wav voiced=0.817 f0=150
+[screen 81/120] fs_cat_class_00709.wav voiced=0.597 f0=1995
+[screen 82/120] fs_cat_class_00145.wav voiced=0.182 f0=153
+[screen 83/120] tz_cat_class_00204.wav voiced=0.785 f0=476
+[screen 84/120] fs_cat_class_00561.wav voiced=0.037 f0=205
+[screen 85/120] fs_cat_class_00647.wav voiced=0.387 f0=1995
+[screen 86/120] tz_cat_class_00029.wav voiced=0.651 f0=639
+[screen 87/120] fs_cat_class_00816.wav voiced=0.645 f0=365
+[screen 88/120] fs_cat_class_00815.wav voiced=0.031 f0=1995
+[screen 89/120] fs_cat_class_00138.wav voiced=0.261 f0=796
+[screen 90/120] fs_cat_class_00356.wav voiced=0.342 f0=1995
+[screen 91/120] fs_cat_class_00279.wav voiced=0.727 f0=447
+[screen 92/120] fs_cat_class_00511.wav voiced=0.555 f0=150
+[screen 93/120] fs_cat_class_00612.wav voiced=0.224 f0=150
+[screen 94/120] fs_cat_class_00713.wav voiced=0.997 f0=193
+[screen 95/120] fs_cat_class_00119.wav voiced=0.428 f0=170
+[screen 96/120] fs_cat_class_00077.wav voiced=0.370 f0=154
+[screen 97/120] tz_cat_class_00179.wav voiced=0.389 f0=343
+[screen 98/120] fs_cat_class_00308.wav voiced=0.351 f0=396
+[screen 99/120] tz_cat_class_00201.wav voiced=0.628 f0=442
+[screen 100/120] tz_cat_class_00426.wav voiced=0.768 f0=288
+[screen 101/120] fs_cat_class_00180.wav voiced=0.515 f0=405
+[screen 102/120] fs_cat_class_00330.wav voiced=0.253 f0=597
+[screen 103/120] fs_cat_class_00752.wav voiced=0.618 f0=550
+[screen 104/120] tz_cat_class_00036.wav voiced=0.449 f0=381
+[screen 105/120] tz_cat_class_00148.wav voiced=0.604 f0=538
+[screen 106/120] fs_cat_class_00822.wav voiced=0.036 f0=1995
+[screen 107/120] tz_cat_class_00133.wav voiced=0.659 f0=544
+[screen 108/120] fs_cat_class_00101.wav voiced=0.402 f0=1851
+[screen 109/120] fs_cat_class_00225.wav voiced=0.344 f0=502
+[screen 110/120] tz_cat_class_00158.wav voiced=0.726 f0=283
+[screen 111/120] fs_cat_class_00070.wav voiced=0.262 f0=150
+[screen 112/120] fs_cat_class_00290.wav voiced=0.282 f0=150
+[screen 113/120] fs_cat_class_00691.wav voiced=0.656 f0=150
+[screen 114/120] fs_cat_class_00234.wav voiced=0.461 f0=150
+[screen 115/120] tz_cat_class_00318.wav voiced=0.447 f0=150
+[screen 116/120] fs_cat_class_00739.wav voiced=0.016 f0=942
+[screen 117/120] fs_cat_class_00420.wav voiced=0.671 f0=516
+[screen 118/120] tz_cat_class_00198.wav voiced=0.440 f0=519
+[screen 119/120] fs_cat_class_00246.wav voiced=0.065 f0=150
+[screen 120/120] fs_cat_class_00133.wav voiced=0.488 f0=422
+/home/hull/Documents/Repos/nvcnsf-private/hparams.py:50: UserWarning: Empty filters detected in mel frequency basis. Some channels will produce empty responses. Try increasing your sampling rate (and fmax) or reducing n_mels.
+  jnp.array(librosa.filters.mel(sr=24000,
+/home/hull/anaconda3/envs/nvcnsf/lib/python3.11/site-packages/librosa/core/convert.py:2023: RuntimeWarning: divide by zero encountered in log10
+  + np.log10(f_sq)
+loaded checkpoint step 100000
+[convert] cvM00__cvrefM00 (open_intra, shift +0.0 st)
+[convert] cvM00__cvrefM01 (open_intra, shift +0.0 st)
+[convert] cvM00__cvrefF00 (open_inter, shift +0.0 st)
+[convert] cvM00__cvrefF01 (open_inter, shift +0.0 st)
+[convert] cvM00__jvs001M (closed_intra, shift +0.0 st)
+[convert] cvM00__jvs003M (closed_intra, shift +0.0 st)
+[convert] cvM00__jvs002F (closed_inter, shift +0.0 st)
+[convert] cvM00__jvs004F (closed_inter, shift +0.0 st)
+[convert] cvM00__cat00 (human2cat, shift +21.1 st)
+[convert] cvM00__cat01 (human2cat, shift +7.3 st)
+[convert] cvM00__cat02 (human2cat, shift +0.9 st)
+[convert] cvM00__cat03 (human2cat, shift +7.6 st)
+[convert] cvM00__cat04 (human2cat, shift +19.4 st)
+[convert] cvM00__cat05 (human2cat, shift +8.4 st)
+[convert] cvM01__cvrefM00 (open_intra, shift +0.0 st)
+[convert] cvM01__cvrefM01 (open_intra, shift +0.0 st)
+[convert] cvM01__cvrefF00 (open_inter, shift +0.0 st)
+[convert] cvM01__cvrefF01 (open_inter, shift +0.0 st)
+[convert] cvM01__jvs001M (closed_intra, shift +0.0 st)
+[convert] cvM01__jvs003M (closed_intra, shift +0.0 st)
+[convert] cvM01__jvs002F (closed_inter, shift +0.0 st)
+[convert] cvM01__jvs004F (closed_inter, shift +0.0 st)
+[convert] cvM01__cat00 (human2cat, shift +18.7 st)
+[convert] cvM01__cat01 (human2cat, shift +14.4 st)
+[convert] cvM01__cat02 (human2cat, shift -1.5 st)
+[convert] cvM01__cat03 (human2cat, shift +5.2 st)
+[convert] cvM01__cat04 (human2cat, shift +18.2 st)
+[convert] cvM01__cat05 (human2cat, shift +5.0 st)
+[convert] cvM02__cvrefM00 (open_intra, shift +0.0 st)
+[convert] cvM02__cvrefM01 (open_intra, shift +0.0 st)
+[convert] cvM02__cvrefF00 (open_inter, shift +0.0 st)
+[convert] cvM02__cvrefF01 (open_inter, shift +0.0 st)
+[convert] cvM02__jvs001M (closed_intra, shift +0.0 st)
+[convert] cvM02__jvs003M (closed_intra, shift +0.0 st)
+[convert] cvM02__jvs002F (closed_inter, shift +0.0 st)
+[convert] cvM02__jvs004F (closed_inter, shift +0.0 st)
+[convert] cvM02__cat00 (human2cat, shift +21.4 st)
+[convert] cvM02__cat01 (human2cat, shift +14.0 st)
+[convert] cvM02__cat02 (human2cat, shift +1.2 st)
+[convert] cvM02__cat03 (human2cat, shift +7.9 st)
+[convert] cvM02__cat04 (human2cat, shift +20.0 st)
+[convert] cvM02__cat05 (human2cat, shift +9.1 st)
+[convert] cvM03__cvrefM00 (open_intra, shift +0.0 st)
+[convert] cvM03__cvrefM01 (open_intra, shift +0.0 st)
+[convert] cvM03__cvrefF00 (open_inter, shift +0.0 st)
+[convert] cvM03__cvrefF01 (open_inter, shift +0.0 st)
+[convert] cvM03__jvs001M (closed_intra, shift +0.0 st)
+[convert] cvM03__jvs003M (closed_intra, shift +0.0 st)
+[convert] cvM03__jvs002F (closed_inter, shift +0.0 st)
+[convert] cvM03__jvs004F (closed_inter, shift +0.0 st)
+[convert] cvM03__cat00 (human2cat, shift +24.0 st)
+[convert] cvM03__cat01 (human2cat, shift +14.4 st)
+[convert] cvM03__cat02 (human2cat, shift +3.9 st)
+[convert] cvM03__cat03 (human2cat, shift +10.6 st)
+[convert] cvM03__cat04 (human2cat, shift +18.4 st)
+[convert] cvM03__cat05 (human2cat, shift +10.6 st)
+[convert] cvF00__cvrefM00 (open_inter, shift +0.0 st)
+[convert] cvF00__cvrefM01 (open_inter, shift +0.0 st)
+[convert] cvF00__cvrefF00 (open_intra, shift +0.0 st)
+[convert] cvF00__cvrefF01 (open_intra, shift +0.0 st)
+[convert] cvF00__jvs001M (closed_inter, shift +0.0 st)
+[convert] cvF00__jvs003M (closed_inter, shift +0.0 st)
+[convert] cvF00__jvs002F (closed_intra, shift +0.0 st)
+[convert] cvF00__jvs004F (closed_intra, shift +0.0 st)
+[convert] cvF00__cat00 (human2cat, shift +11.1 st)
+[convert] cvF00__cat01 (human2cat, shift +6.9 st)
+[convert] cvF00__cat02 (human2cat, shift -9.1 st)
+[convert] cvF00__cat03 (human2cat, shift -2.4 st)
+[convert] cvF00__cat04 (human2cat, shift +8.3 st)
+[convert] cvF00__cat05 (human2cat, shift -4.5 st)
+[convert] cvF01__cvrefM00 (open_inter, shift +0.0 st)
+[convert] cvF01__cvrefM01 (open_inter, shift +0.0 st)
+[convert] cvF01__cvrefF00 (open_intra, shift +0.0 st)
+[convert] cvF01__cvrefF01 (open_intra, shift +0.0 st)
+[convert] cvF01__jvs001M (closed_inter, shift +0.0 st)
+[convert] cvF01__jvs003M (closed_inter, shift +0.0 st)
+[convert] cvF01__jvs002F (closed_intra, shift +0.0 st)
+[convert] cvF01__jvs004F (closed_intra, shift +0.0 st)
+[convert] cvF01__cat00 (human2cat, shift +15.1 st)
+[convert] cvF01__cat01 (human2cat, shift +11.5 st)
+[convert] cvF01__cat02 (human2cat, shift -5.1 st)
+[convert] cvF01__cat03 (human2cat, shift +1.6 st)
+[convert] cvF01__cat04 (human2cat, shift +12.8 st)
+[convert] cvF01__cat05 (human2cat, shift +0.0 st)
+[convert] cvF02__cvrefM00 (open_inter, shift +0.0 st)
+[convert] cvF02__cvrefM01 (open_inter, shift +0.0 st)
+[convert] cvF02__cvrefF00 (open_intra, shift +0.0 st)
+[convert] cvF02__cvrefF01 (open_intra, shift +0.0 st)
+[convert] cvF02__jvs001M (closed_inter, shift +0.0 st)
+[convert] cvF02__jvs003M (closed_inter, shift +0.0 st)
+[convert] cvF02__jvs002F (closed_intra, shift +0.0 st)
+[convert] cvF02__jvs004F (closed_intra, shift +0.0 st)
+[convert] cvF02__cat00 (human2cat, shift +17.8 st)
+[convert] cvF02__cat01 (human2cat, shift +13.8 st)
+[convert] cvF02__cat02 (human2cat, shift -2.4 st)
+[convert] cvF02__cat03 (human2cat, shift +4.3 st)
+[convert] cvF02__cat04 (human2cat, shift +16.8 st)
+[convert] cvF02__cat05 (human2cat, shift +4.1 st)
+[convert] cvF03__cvrefM00 (open_inter, shift +0.0 st)
+[convert] cvF03__cvrefM01 (open_inter, shift +0.0 st)
+[convert] cvF03__cvrefF00 (open_intra, shift +0.0 st)
+[convert] cvF03__cvrefF01 (open_intra, shift +0.0 st)
+[convert] cvF03__jvs001M (closed_inter, shift +0.0 st)
+[convert] cvF03__jvs003M (closed_inter, shift +0.0 st)
+[convert] cvF03__jvs002F (closed_intra, shift +0.0 st)
+[convert] cvF03__jvs004F (closed_intra, shift +0.0 st)
+[convert] cvF03__cat00 (human2cat, shift +18.9 st)
+[convert] cvF03__cat01 (human2cat, shift +10.3 st)
+[convert] cvF03__cat02 (human2cat, shift -1.3 st)
+[convert] cvF03__cat03 (human2cat, shift +5.4 st)
+[convert] cvF03__cat04 (human2cat, shift +18.1 st)
+[convert] cvF03__cat05 (human2cat, shift +5.9 st)
+8 sources x 14 references = 112 conversions

@@ -1,0 +1,83 @@
+[1/32] cvM00
+[2/32] cvM01
+[3/32] cvM02
+[4/32] cvM03
+[5/32] cvF00
+[6/32] cvF01
+[7/32] cvF02
+[8/32] cvF03
+[9/32] jvsM00
+[10/32] jvsM01
+[11/32] jvsM02
+[12/32] jvsM03
+[13/32] jvsF00
+[14/32] jvsF01
+[15/32] jvsF02
+[16/32] jvsF03
+[17/32] cat00
+[18/32] cat01
+[19/32] cat02
+[20/32] cat03
+[21/32] cat04
+[22/32] cat05
+[23/32] cat06
+[24/32] cat07
+[25/32] cat08
+[26/32] cat09
+[27/32] cat10
+[28/32] cat11
+[29/32] cat12
+[30/32] cat13
+[31/32] cat14
+[32/32] cat15
+sweep {'group': 'cat', 'band_lo_hz': 100, 'band_hi_hz': 141, 'center_hz': 118.7, 'n_frames': 3136, 'acc': 0.986, 'voiced': 0.986, 'acc_if_voiced': 1.0, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 141, 'band_hi_hz': 200, 'center_hz': 167.9, 'n_frames': 5188, 'acc': 0.9948, 'voiced': 0.9948, 'acc_if_voiced': 1.0, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 200, 'band_hi_hz': 283, 'center_hz': 237.9, 'n_frames': 5718, 'acc': 0.993, 'voiced': 0.9944, 'acc_if_voiced': 0.9986, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 283, 'band_hi_hz': 400, 'center_hz': 336.5, 'n_frames': 5769, 'acc': 0.9945, 'voiced': 0.996, 'acc_if_voiced': 0.9984, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 400, 'band_hi_hz': 566, 'center_hz': 475.8, 'n_frames': 5363, 'acc': 0.997, 'voiced': 0.9991, 'acc_if_voiced': 0.9979, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 566, 'band_hi_hz': 800, 'center_hz': 672.9, 'n_frames': 2734, 'acc': 0.9971, 'voiced': 0.9985, 'acc_if_voiced': 0.9985, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 800, 'band_hi_hz': 1131, 'center_hz': 951.2, 'n_frames': 761, 'acc': 0.9934, 'voiced': 0.9974, 'acc_if_voiced': 0.996, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 1131, 'band_hi_hz': 1600, 'center_hz': 1345.2, 'n_frames': 312, 'acc': 0.9968, 'voiced': 1.0, 'acc_if_voiced': 0.9968, 'octave': 0.0}
+sweep {'group': 'cat', 'band_lo_hz': 1600, 'band_hi_hz': 2263, 'center_hz': 1902.8, 'n_frames': 50, 'acc': 1.0, 'voiced': 1.0, 'acc_if_voiced': 1.0, 'octave': 0.0}
+sweep {'group': 'human', 'band_lo_hz': 100, 'band_hi_hz': 141, 'center_hz': 118.7, 'n_frames': 856, 'acc': 0.9252, 'voiced': 0.9346, 'acc_if_voiced': 0.99, 'octave': 0.0013}
+sweep {'group': 'human', 'band_lo_hz': 141, 'band_hi_hz': 200, 'center_hz': 167.9, 'n_frames': 1742, 'acc': 0.9592, 'voiced': 0.9638, 'acc_if_voiced': 0.9952, 'octave': 0.0}
+sweep {'group': 'human', 'band_lo_hz': 200, 'band_hi_hz': 283, 'center_hz': 237.9, 'n_frames': 2887, 'acc': 0.9747, 'voiced': 0.9816, 'acc_if_voiced': 0.9929, 'octave': 0.0}
+sweep {'group': 'human', 'band_lo_hz': 283, 'band_hi_hz': 400, 'center_hz': 336.5, 'n_frames': 3441, 'acc': 0.9785, 'voiced': 0.9837, 'acc_if_voiced': 0.9947, 'octave': 0.0}
+sweep {'group': 'human', 'band_lo_hz': 400, 'band_hi_hz': 566, 'center_hz': 475.8, 'n_frames': 3493, 'acc': 0.9782, 'voiced': 0.9828, 'acc_if_voiced': 0.9953, 'octave': 0.0006}
+sweep {'group': 'human', 'band_lo_hz': 566, 'band_hi_hz': 800, 'center_hz': 672.9, 'n_frames': 2744, 'acc': 0.965, 'voiced': 0.9727, 'acc_if_voiced': 0.9921, 'octave': 0.0052}
+sweep {'group': 'human', 'band_lo_hz': 800, 'band_hi_hz': 1131, 'center_hz': 951.2, 'n_frames': 1921, 'acc': 0.9651, 'voiced': 0.9682, 'acc_if_voiced': 0.9968, 'octave': 0.0}
+sweep {'group': 'human', 'band_lo_hz': 1131, 'band_hi_hz': 1600, 'center_hz': 1345.2, 'n_frames': 833, 'acc': 0.9748, 'voiced': 0.976, 'acc_if_voiced': 0.9988, 'octave': 0.0}
+sweep {'group': 'human', 'band_lo_hz': 1600, 'band_hi_hz': 2263, 'center_hz': 1902.8, 'n_frames': 150, 'acc': 1.0, 'voiced': 1.0, 'acc_if_voiced': 1.0, 'octave': 0.0}
+metric                                cat   human_closed     human_open
+f0_true_med                       572.435        227.800        168.393
+zq_mu_hz                          366.840        207.776        192.614
+zq_cond_f0_med                    575.635        228.872        168.799
+zq_out_f0_med                     577.145        227.958        169.851
+zq_mean_offset_st                  -7.661         -2.303          2.971
+zq_contour_r                        0.764          0.982          0.918
+zq_range_ratio                      1.446          1.062          1.191
+zq_clipped                          0.000          0.000          0.000
+zq_vf_on_truth                      0.969          0.972          0.946
+zq_gen_acc                          0.847          0.929          0.935
+z_gen_acc                           0.847          0.929          0.935
+zq_dec_acc                          0.953          0.934          0.943
+zq_dec_octave                       0.000          0.002          0.001
+zq_out_voiced_on_vf                 0.971          0.978          0.968
+oracle_fo_acc                       0.991          0.991          0.986
+oracle_fo_vf_acc                    0.995          0.971          0.932
+oracle_fo_vf_octave                 0.000          0.000          0.001
+oracle_fo_vf_out_voiced             0.995          0.977          0.938
+zq_e2e_acc                          0.841          0.946          0.949
+decoder_lag_frames                  1.938          2.000          2.125
+z_to_zq_dist                        7.265          5.782          5.838
+frac_true_above_cap                 0.000          0.000          0.000
+zq_beta_med                         0.774          0.390          0.433
+logflat_in                        -10.707         -8.951         -9.895
+logflat_zq                         -9.689         -8.778         -8.897
+logflat_oracle_fo_vf               -9.908         -8.772         -8.782
+{'group': 'cat', 'band_hz': '200-440', 'n_frames': 1096, 'fo_zq_acc': 0.9188, 'fo_zq_voiced': 1.0, 'fo_zq_acc_if_voiced': 0.9188, 'fo_zq_octave': 0.0036, 'out_zq_acc': 0.917, 'out_zq_voiced': 0.9909, 'out_zq_acc_if_voiced': 0.9254, 'out_zq_octave': 0.0028, 'out_oracle_fo_acc': 0.9973, 'out_oracle_fo_voiced': 1.0, 'out_oracle_fo_acc_if_voiced': 0.9973, 'out_oracle_fo_octave': 0.0, 'out_oracle_fo_vf_acc': 0.99, 'out_oracle_fo_vf_voiced': 0.99, 'out_oracle_fo_vf_acc_if_voiced': 1.0, 'out_oracle_fo_vf_octave': 0.0}
+{'group': 'cat', 'band_hz': '440-880', 'n_frames': 4284, 'fo_zq_acc': 0.8786, 'fo_zq_voiced': 1.0, 'fo_zq_acc_if_voiced': 0.8786, 'fo_zq_octave': 0.0037, 'out_zq_acc': 0.8763, 'out_zq_voiced': 0.9888, 'out_zq_acc_if_voiced': 0.8862, 'out_zq_octave': 0.0045, 'out_oracle_fo_acc': 0.9972, 'out_oracle_fo_voiced': 0.9977, 'out_oracle_fo_acc_if_voiced': 0.9995, 'out_oracle_fo_octave': 0.0, 'out_oracle_fo_vf_acc': 0.9988, 'out_oracle_fo_vf_voiced': 0.9988, 'out_oracle_fo_vf_acc_if_voiced': 1.0, 'out_oracle_fo_vf_octave': 0.0}
+{'group': 'cat', 'band_hz': '880-2000', 'n_frames': 569, 'fo_zq_acc': 0.3251, 'fo_zq_voiced': 1.0, 'fo_zq_acc_if_voiced': 0.3251, 'fo_zq_octave': 0.007, 'out_zq_acc': 0.3023, 'out_zq_voiced': 0.9192, 'out_zq_acc_if_voiced': 0.3289, 'out_zq_octave': 0.0019, 'out_oracle_fo_acc': 0.9209, 'out_oracle_fo_voiced': 0.949, 'out_oracle_fo_acc_if_voiced': 0.9704, 'out_oracle_fo_octave': 0.0, 'out_oracle_fo_vf_acc': 0.993, 'out_oracle_fo_vf_voiced': 0.9965, 'out_oracle_fo_vf_acc_if_voiced': 0.9965, 'out_oracle_fo_vf_octave': 0.0}
+{'group': 'human', 'band_hz': '200-440', 'n_frames': 1911, 'fo_zq_acc': 0.9137, 'fo_zq_voiced': 1.0, 'fo_zq_acc_if_voiced': 0.9137, 'fo_zq_octave': 0.0016, 'out_zq_acc': 0.9461, 'out_zq_voiced': 0.9822, 'out_zq_acc_if_voiced': 0.9632, 'out_zq_octave': 0.0, 'out_oracle_fo_acc': 0.9906, 'out_oracle_fo_voiced': 0.9974, 'out_oracle_fo_acc_if_voiced': 0.9932, 'out_oracle_fo_octave': 0.0, 'out_oracle_fo_vf_acc': 0.9822, 'out_oracle_fo_vf_voiced': 0.9885, 'out_oracle_fo_vf_acc_if_voiced': 0.9936, 'out_oracle_fo_vf_octave': 0.0}
+{'group': 'human', 'band_hz': '50-200', 'n_frames': 1742, 'fo_zq_acc': 0.9541, 'fo_zq_voiced': 1.0, 'fo_zq_acc_if_voiced': 0.9541, 'fo_zq_octave': 0.0006, 'out_zq_acc': 0.9592, 'out_zq_voiced': 0.9879, 'out_zq_acc_if_voiced': 0.9709, 'out_zq_octave': 0.0, 'out_oracle_fo_acc': 0.9834, 'out_oracle_fo_voiced': 0.9891, 'out_oracle_fo_acc_if_voiced': 0.9942, 'out_oracle_fo_octave': 0.0, 'out_oracle_fo_vf_acc': 0.9443, 'out_oracle_fo_vf_voiced': 0.9512, 'out_oracle_fo_vf_acc_if_voiced': 0.9928, 'out_oracle_fo_vf_octave': 0.0006}
+codes {'cat': [119, 276, 359, 455], 'human_closed': [83, 98, 180, 336, 455, 497, 501], 'human_open': [14, 72, 98, 257, 359, 368, 374, 440], 'cat_codes_also_used_by_humans': [359, 455]}
